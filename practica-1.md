@@ -7,8 +7,6 @@ Introducir a los estudiantes al concepto y la práctica de la comunicación seri
 
 #### Capítulo 1. Fundamentos teóricos
 
-### Protocolos y Formatos de Comunicación en la Comunicación Serial
-
 #### 1. Comunicación Serial: 
 La comunicación serial es un método esencial en la transferencia de datos en muchos sistemas electrónicos y computacionales, utilizado ampliamente tanto en comunicaciones industriales como personales. La información se envía secuencialmente, bit a bit, a través de un único canal de comunicación, lo que simplifica el diseño del sistema y reduce los costos.
 
