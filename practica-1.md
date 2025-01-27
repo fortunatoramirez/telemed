@@ -1,4 +1,4 @@
-### Práctica 1: Comunicación Serial PC -> Dispositivo → Arduino
+### Práctica 1: Comunicación Serial: PC → Dispositivo
 
 **Objetivo:**  
 Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), enseñando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
@@ -9,7 +9,6 @@ Introducir a los estudiantes al concepto y la práctica de la comunicación seri
 1. **Comunicación Serial:**  
    - **Trama de Datos:** Es la estructura básica de la información transmitida que incluye bits de inicio, datos, paridad y stop. Cada parte tiene su función específica para asegurar una transmisión correcta y la integridad de los datos.
    - **Diagrama de una Trama:**  
-     ![Diagrama de Trama Serial](URL_a_un_diagrama_aquí)  
 
 2. **Baudios:**  
    - Define la velocidad de transmisión en bits por segundo (bps). Un baudio representa un símbolo por segundo, que puede ser más de un bit de información.
