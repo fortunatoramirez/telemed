@@ -9,7 +9,6 @@
 +------------------+               +------------------+               +-----------+
 
 
-
 ### **Objetivo:**
 Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), utilizando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
 
