@@ -1,6 +1,6 @@
 ### Práctica 1: Comunicación Serial: PC → Dispositivo
 
-**Objetivo:**  
+### **Objetivo:**  
 Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), enseñando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
 ---
 #### Fundamentos teóricos
@@ -67,6 +67,8 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
 3. **Implementación del Protocolo Serial en Arduino:**  
    - Utiliza buffers de memoria para almacenar temporalmente los caracteres recibidos hasta que estén listos para ser procesados.
 
+---
+
 #### Desarrollo
 
 **Código de la Aplicación en Python en la PC:**
@@ -129,6 +131,7 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
    }
    ```
 
+---
 #### Resultados
 - Documenta con capturas de pantalla, imágenes y detalles de cada caso:
    - Encendido y apagado de LEDs.
@@ -136,9 +139,11 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
    - Cambios observados al usar un carácter en lugar de una cadena.
    - Efectos de eliminar o modificar el `delay()`.
 
+---
 #### Conclusiones
 - Reflexiona sobre la eficacia de la comunicación serial, la codificación de caracteres y la respuesta del hardware a diferentes tipos de entradas.
 
+---
 #### Anexos
 - Incluye los códigos completos en Python y Arduino, así como la modificación para el control con un solo carácter.
 
