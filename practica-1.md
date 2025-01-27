@@ -1,7 +1,16 @@
 ### Práctica 1: Comunicación Serial: PC → Dispositivo
 
++------------------+               +------------------+               +-----------+
+|                  |   (Serial)    |                  |               |           |
+|   Computadora    |  ---------->  |  Microcontrolador|  ---------->  |    LED    |
+|  (Python Script) |  Comando      |     (Arduino)    |  Control LED  |           |
+|                  |  "ON" o "OFF" |                  |  "HIGH" o     |           |
+|                  |               |                  |  "LOW"        |           |
++------------------+               +------------------+               +-----------+
+
+
 ### **Objetivo:**
-Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), enseñando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
+Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), utilizando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
 
 ---
 
@@ -147,7 +156,7 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
 
 ---
 
-#### Anexos
+#### Capítulo 5. Anexos
 - Incluye los códigos completos en Python y Arduino, así como la modificación para el control con un solo carácter.
 
 ---
