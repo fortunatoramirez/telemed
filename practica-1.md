@@ -1,9 +1,11 @@
 ### Práctica 1: Comunicación Serial: PC → Dispositivo
 
-### **Objetivo:**  
+### **Objetivo:**
 Introducir a los estudiantes al concepto y la práctica de la comunicación serial entre una computadora y un microcontrolador (Arduino), enseñando los fundamentos del manejo de señales digitales y el intercambio de datos a través de protocolos de comunicación establecidos.
+
 ---
-#### Fundamentos teóricos
+
+#### Capítulo 1. Fundamentos teóricos
 
 ### Protocolos y Formatos de Comunicación en la Comunicación Serial
 
@@ -69,7 +71,7 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
 
 ---
 
-#### Desarrollo
+#### Capítulo 2. Desarrollo
 
 **Código de la Aplicación en Python en la PC:**
 1. Abre Visual Studio Code y crea un nuevo archivo llamado `control_leds.py`.
@@ -132,7 +134,8 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
    ```
 
 ---
-#### Resultados
+
+#### Capítulo 3. Resultados
 - Documenta con capturas de pantalla, imágenes y detalles de cada caso:
    - Encendido y apagado de LEDs.
    - Comportamientos con entradas distintas a "ON" y "OFF".
@@ -140,13 +143,16 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
    - Efectos de eliminar o modificar el `delay()`.
 
 ---
-#### Conclusiones
+
+#### Capítulo 4. Conclusiones
 - Reflexiona sobre la eficacia de la comunicación serial, la codificación de caracteres y la respuesta del hardware a diferentes tipos de entradas.
 
 ---
+
 #### Anexos
 - Incluye los códigos completos en Python y Arduino, así como la modificación para el control con un solo carácter.
 
 ---
+
 **Agrega secciones y extiende cada sección, según cosideres necesario.**
 **Agrega el reporte a la bitácora de prácticas.**
