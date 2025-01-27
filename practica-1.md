@@ -1,12 +1,12 @@
 ### Práctica 1: Comunicación Serial: PC → Dispositivo
 
-+------------------+               +------------------+               +-----------+
-|                  |               |                  |               |           |
-|   Computadora    |  ---------->  |  Microcontrolador|  ---------->  |    LED    |
-|                  |  Comando      |     (Arduino)    |  Control LED  |           |
-| (Python Script)  |  "ON" o "OFF" |  (Arduino IDE)   |  "HIGH" o     |           |
-|                  |               |                  |  "LOW"        |           |
-+------------------+               +------------------+               +-----------+
++------------------+               +------------------+               +-----------+<br>
+|                  |               |                  |               |           |<br>
+|   Computadora    |  ---------->  |  Microcontrolador|  ---------->  |    LED    |<br>
+|                  |  Comando      |     (Arduino)    |  Control LED  |           |<br>
+| (Python Script)  |  "ON" o "OFF" |  (Arduino IDE)   |  "HIGH" o     |           |<br>
+|                  |               |                  |  "LOW"        |           |<br>
++------------------+               +------------------+               +-----------+<br>
 
 
 ### **Objetivo:**
