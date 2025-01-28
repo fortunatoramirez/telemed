@@ -86,6 +86,10 @@ Estos elementos de la comunicación serial, desde la estructura de la trama de d
    - `serial.Serial('COM6', 9600)`: Inicializa la conexión serial con Arduino.
    - `input()`: Captura comandos del usuario.
    - `comando.encode()`: Convierte el string a bytes para la transmisión serial.
+3. Para instalar el paquete serial en python: *pip install pyserial*
+   
+  
+
 
 **Código para el Microcontrolador (Arduino):**
 1. Abre Arduino IDE y configura el entorno para tu placa Arduino.
