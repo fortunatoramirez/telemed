@@ -37,37 +37,15 @@ La conversión ADC implica muestrear una señal analógica a intervalos regulare
   | 11                      | 3                       | 5 V                     |
 
 
-
-
 - **Frecuencia de Muestreo:** Debe ser suficientemente alta para capturar todas las variaciones significativas en la señal analógica, de acuerdo con el Teorema de Nyquist, que establece que la frecuencia de muestreo debe ser al menos el doble de la frecuencia máxima presente en la señal.
 
-1.2 **Características del ADC en Arduino:**
-El Arduino, como el modelo Uno, utiliza un ADC de 10 bits integrado, lo que significa que puede representar valores analógicos con 1024 niveles diferentes. Los pines analógicos en Arduino (A0 a A5 en el Uno) están conectados directamente a este ADC.
+1.2 **Ejemplo de las características del ADC de un dispositivo**
+  | Característica       | Detalle                       |
+  |----------------------|-------------------------------|
+  | Resolución           | 10 bits                       |
+  | Número de Canales    | 6 (A0 - A5)                   |
+  | Voltaje de Referencia| 5V (por defecto)              |
+  | Rango de Entrada     | 0V - 5V                       |
+  | Frecuencia de Muestreo Máxima | 10,000 muestras/segundo |
 
-**Diagrama de Conversión ADC:**
-```
-  +----------------+         +----------+          +-----------------+           +----------------------+
-  | Señal Analógica|         |  Sensor  |          | Convertidor ADC |           | Microcontrolador     |
-  +----------------+         +----------+          +-----------------+           +----------------------+
-         |                      |                           |                               |
-         |---(entrada)------>|                         |---(digitaliza)------------>|---(procesa y analiza)--->
-         |   Medición física   |  Transduce señal        |   Conversión A/D           |   Salida de datos
-         |  (temperatura,     |  analógica a eléctrica  |   10 bits (1024 niveles)   |   (Utilizada en
-         |  luz, etc.)        |                         |                            |   aplicaciones o 
-         |                    |                         |                            |   almacenada)
-         |                    |                         |                            |
-  +----------------+         +----------+          +-----------------+           +----------------------+
-  |  Mundo Real   |         |  Ej: Termistor,       |  Integrado en Arduino        |  Arduino Uno, etc.   |
-  +----------------+         |  Fotocelda, etc.     |                              +----------------------+
-
-```
-
-**Tabla de Especificaciones del ADC de Arduino Uno:**
-| Característica       | Detalle                       |
-|----------------------|-------------------------------|
-| Resolución           | 10 bits                       |
-| Número de Canales    | 6 (A0 - A5)                   |
-| Voltaje de Referencia| 5V (por defecto)              |
-| Rango de Entrada     | 0V - 5V                       |
-| Frecuencia de Muestreo Máxima | 10,000 muestras/segundo |
 
