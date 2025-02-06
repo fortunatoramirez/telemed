@@ -167,6 +167,5 @@ En esta fase de la práctica, los estudiantes reemplazarán el potenciómetro in
 - **Documentación de la Bitácora de Prácticas:**
   - Registre detalladamente todas las sesiones de prácticas, observaciones y ajustes realizados. Esto facilitará la evaluación del proceso y servirá como referencia para futuras prácticas o investigaciones.
 
-Este enfoque detallado garantiza que los estudiantes no solo practiquen la teoría y la técnica detrás de la captura y análisis de datos en tiempo real, sino que también comprendan profundamente cómo las variaciones en el hardware y las condiciones ambientales pueden influir en los resultados experimentales.
 
 
