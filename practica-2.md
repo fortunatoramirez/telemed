@@ -40,12 +40,91 @@ La conversión ADC implica muestrear una señal analógica a intervalos regulare
 - **Frecuencia de Muestreo:** Debe ser suficientemente alta para capturar todas las variaciones significativas en la señal analógica, de acuerdo con el Teorema de Nyquist, que establece que la frecuencia de muestreo debe ser al menos el doble de la frecuencia máxima presente en la señal.
 
 1.2 **Ejemplo de las características del ADC de un dispositivo**
-  | Característica       | Detalle                       |
-  |----------------------|-------------------------------|
-  | Resolución           | 10 bits                       |
-  | Número de Canales    | 6 (A0 - A5)                   |
-  | Voltaje de Referencia| 5V (por defecto)              |
-  | Rango de Entrada     | 0V - 5V                       |
-  | Frecuencia de Muestreo Máxima | 10,000 muestras/segundo |
+  - | Característica       | Detalle                       |
+    |----------------------|-------------------------------|
+    | Resolución           | 10 bits                       |
+    | Número de Canales    | 6 (A0 - A5)                   |
+    | Voltaje de Referencia| 5V (por defecto)              |
+    | Rango de Entrada     | 0V - 5V                       |
+    | Frecuencia de Muestreo Máxima | 10,000 muestras/segundo |
+
+ 
+
+### Capítulo 2. Desarrollo
+
+Para realizar la lectura continua de datos desde un dispositivo mediante comunicación serial. Se detallarán tanto la configuración del hardware como la programación del Dispositivo y la aplicación en Python para capturar los datos.
+
+#### 2.1 Configuración del Hardware
+
+**Materiales Necesarios:**
+- Dispositivo basado en microcontrolador.
+- Potenciómetro o cualquier sensor analógico que se conecte al pin A0.
+- Cable USB para conectar el Arduino a la computadora.
+
+**Procedimiento:**
+1. **Conexión del Sensor:**
+   - Conecte un extremo del potenciómetro al pin A0 del Arduino.
+   - Conecte los otros dos extremos a 5V y GND en el Arduino para proporcionar alimentación al potenciómetro.
+
+2. **Verificación:**
+   - Asegúrese de que todas las conexiones estén seguras y correctas para evitar lecturas erráticas o daños en el Arduino.
+
+#### 2.2 Código del Microcontrolador (Arduino)
+
+El código para el Arduino se encarga de leer el valor del pin A0 cada vez que recibe un comando 'r' desde la computadora, y luego envía ese valor de vuelta a través del puerto serial.
+
+```arduino
+char car;
+int val;
+
+void setup() {
+  Serial.begin(9600);  // Inicia la comunicación serial a 9600 baudios
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    car = Serial.read();  // Lee el carácter enviado desde la computadora
+    if (car == 'r') {
+      val = analogRead(A0);  // Lee el valor analógico del pin A0
+      Serial.println(val);  // Envía el valor de vuelta a la computadora
+    }
+  }
+}
+```
+
+**Explicación del Código:**
+- `Serial.begin(9600);` Inicia la comunicación serial a 9600 baudios.
+- `Serial.available() > 0` Comprueba si hay datos disponibles en el puerto serial.
+- `Serial.read();` Lee el carácter recibido.
+- `analogRead(A0);` Realiza la lectura analógica del pin A0.
+- `Serial.println(val);` Envía el valor leído de vuelta a la computadora.
+
+#### 2.3 Código de la Aplicación en Python
+
+El script en Python se encargará de enviar el comando 'r' al Arduino, recibir el valor analógico convertido y mostrarlo en la consola. Este proceso se repite indefinidamente cada 0.5 segundos.
+
+```python
+import serial
+import time
+
+print("Conectando al Arduino...")
+arduino = serial.Serial('COM6', 9600, timeout = 3.0)
+print("Conectado al Arduino.")
+
+while True:
+    arduino.write("r".encode())  // Envía el comando 'r' al Arduino
+    val = arduino.readline().strip()  // Lee la línea que contiene el valor enviado por Arduino
+    if not val:
+        continue
+    val = int(val)  // Convierte el valor leído a entero
+    print(val)  // Muestra el valor en la consola
+    time.sleep(0.5)  // Espera 0.5 segundos antes de enviar otro comando
+```
+
+**Explicación del Código:**
+- `serial.Serial('COM6', 9600, timeout = 3.0)` Inicia la conexión serial con el Arduino.
+- `arduino.write("r".encode())` Envía el carácter 'r' al Arduino, solicitando una lectura.
+- `arduino.readline().strip()` Lee la respuesta del Arduino.
+- `time.sleep(0.5)` Pausa el bucle durante medio segundo para evitar saturar el puerto serial y dar tiempo al Arduino para procesar la lectura.
 
 
