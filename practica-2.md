@@ -16,6 +16,29 @@ La conversión analógica-digital es un proceso que permite a los microcontrolad
 La conversión ADC implica muestrear una señal analógica a intervalos regulares y cuantificar cada muestra en valores digitales. La precisión de esta conversión depende de dos factores principales: la resolución del ADC y la frecuencia de muestreo.
 
 - **Resolución del ADC:** Refiere al número de bits que el ADC utiliza para representar una entrada analógica en forma digital. Por ejemplo, una resolución de 10 bits significa que el ADC puede producir 1024 (2^10) niveles discretos de salida, lo que permite una gradación fina de la señal de entrada.
+
+  ### Tabla de Comparación de Resoluciones de ADC
+  
+  | Resolución (bits) | Niveles de Salida (2^n) | Rango de Voltaje (0-5V) | Incremento de Voltaje (V) | Ejemplo de Uso                            |
+  |-------------------|-------------------------|-------------------------|---------------------------|-------------------------------------------|
+  | 1 bit             | 2                       | 0V - 5V                 | 5 V                       | Detección de presencia/no-presencia       |
+  | 2 bits            | 4                       | 0V - 5V                 | 1.6667 V                  | Control de intensidad básica (bajo, medio, alto) |
+  | 4 bits            | 16                      | 0V - 5V                 | 0.3333 V                  | Control de dispositivos con múltiples estados  |
+  | 8 bits            | 256                     | 0V - 5V                 | 0.0196 V                  | Control de iluminación y dispositivos de audio  |
+  | 10 bits           | 1024                    | 0V - 5V                 | 0.0049 V                  | Monitoreo ambiental y sensores de precisión     |
+
+  ### Tabla de Mapeo de Niveles de ADC de 2 bits
+
+  | Valor Digital (binario) | Valor Digital (decimal) | Voltaje Correspondiente |
+  |-------------------------|-------------------------|-------------------------|
+  | 00                      | 0                       | 0 V                     |
+  | 01                      | 1                       | 1.6667 V                |
+  | 10                      | 2                       | 3.3333 V                |
+  | 11                      | 3                       | 5 V                     |
+
+
+
+
 - **Frecuencia de Muestreo:** Debe ser suficientemente alta para capturar todas las variaciones significativas en la señal analógica, de acuerdo con el Teorema de Nyquist, que establece que la frecuencia de muestreo debe ser al menos el doble de la frecuencia máxima presente en la señal.
 
 1.2 **Características del ADC en Arduino:**
