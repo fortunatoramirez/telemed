@@ -167,7 +167,7 @@ server.listen(3000, () => {
 
 ---
 
-### Material Adicional: Configuración del IDE de Arduino para Programar el ESP32
+### Material Adicional 1: Configuración del IDE de Arduino para Programar el ESP32
 
 Para programar el ESP32 usando el IDE de Arduino, es necesario configurar el entorno de desarrollo para soportar este hardware específico. Aquí te proporciono una guía paso a paso sobre cómo configurar el IDE de Arduino:
 
@@ -194,8 +194,6 @@ Una vez instalado el paquete:
 #### Paso 5: Configurar los Parámetros del Puerto
 1. Conecta tu ESP32 a la computadora mediante un cable USB.
 2. Ve a **Herramientas > Puerto** y selecciona el puerto que muestra tu ESP32.
-
-### Actualización de Material Adicional: Instalación de Bibliotecas y Modificaciones de Código
 
 #### Paso 6: Instalar Bibliotecas Específicas
 Para utilizar el ESP32 con comunicación en tiempo real, necesitarás instalar las bibliotecas **SocketIoClient** de Vincent Wyszynski y **WebSockets** de Markus Sattler.
@@ -229,9 +227,10 @@ Para evitar errores de compilación con la biblioteca SocketIoClient, es necesar
 #### Paso 7: Cargar el Código
 Una vez configurado el entorno, puedes cargar el código proporcionado para el ESP32. Asegúrate de que el código está libre de errores y es compatible con tu modelo de ESP32.
 
+
 ---
 
-### Notas Adicionales: Instalación de Drivers para ESP32
+### Material Adicional 2: Instalación de Drivers para ESP32
 
 En algunos casos, especialmente con nuevos dispositivos o en sistemas operativos específicos, puede ser necesario instalar drivers adicionales para que el ESP32 sea reconocido correctamente por la computadora. Esto es común con chips que usan interfaces USB a serial como el CP210x de Silicon Labs, que es frecuentemente utilizado en módulos ESP32.
 
@@ -260,5 +259,62 @@ En algunos casos, especialmente con nuevos dispositivos o en sistemas operativos
 ### Importancia de los Drivers
 
 Los drivers como los de CP210x facilitan la comunicación entre el microcontrolador y la computadora, permitiendo la programación del dispositivo y la comunicación serial durante la ejecución de aplicaciones. Es esencial asegurarse de que estos drivers están correctamente instalados y actualizados para evitar problemas durante el desarrollo y la depuración proyectos con ESP32.
+
+
+---
+
+
+###  Material Adicional 3: Instrucciones para Instalar Paquetes de Node.js
+
+Para desarrollar una aplicación con Node.js utilizando Express y socket.io en la versión específica 1.7.2, sigue estos pasos para configurar tu entorno en Windows con Visual Studio Code.
+
+#### Paso 1: Instalar Visual Studio Code y Node.js
+Asegúrate de que tienes instalados tanto Visual Studio Code como Node.js:
+- **Visual Studio Code**: Puedes descargarlo desde [su sitio oficial](https://code.visualstudio.com/).
+- **Node.js**: Descárgalo desde [nodejs.org](https://nodejs.org/en/). Esto incluirá npm (Node Package Manager), que es necesario para instalar paquetes de Node.js.
+
+#### Paso 2: Configuración del Proyecto
+1. **Abrir Visual Studio Code** y seleccionar o crear un nuevo directorio para tu proyecto.
+2. **Abrir una terminal en Visual Studio Code**: Puedes hacer esto desde `Terminal > Nueva Terminal`.
+
+#### Paso 3: Inicialización del Proyecto
+1. En la terminal, ejecuta:
+   ```bash
+   npm init -y
+   ```
+   Esto creará un archivo `package.json` que gestionará las configuraciones y las dependencias de tu proyecto.
+
+#### Paso 4: Instalación de Express y Socket.io
+1. **Instalar Express**:
+   - Ejecuta el siguiente comando en la terminal:
+     ```bash
+     npm install express
+     ```
+   - Esto instalará la última versión de Express y la añadirá a las dependencias en tu `package.json`.
+
+2. **Instalar Socket.io versión 1.7.2**:
+   - Dado que necesitas una versión específica de socket.io, asegúrate de especificar la versión en el comando de instalación:
+     ```bash
+     npm install socket.io@1.7.2
+     ```
+   - Este comando instala la versión 1.7.2 de socket.io y la registra en tu archivo `package.json`.
+
+#### Paso 5: Verificación de las Instalaciones
+1. **Verifica que los paquetes están instalados correctamente**:
+   - Revisa el archivo `package.json` en tu proyecto y asegúrate de que las dependencias listan express y socket.io con las versiones correctas.
+
+#### Paso 6: Creación del Servidor
+1. **Crea un archivo nuevo** como `server.js` en tu directorio de proyecto.
+2. **Escribe o copia el código del servidor** que utiliza express y socket.io.
+
+#### Paso 7: Ejecutar el Servidor
+1. **Inicia tu servidor** ejecutando:
+   ```bash
+   node server.js
+   ```
+   - Asegúrate de que no hay errores y que el servidor está corriendo correctamente escuchando en el puerto configurado.
+
+---
+
 
 
