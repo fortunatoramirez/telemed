@@ -58,11 +58,11 @@ io.on('connection', (socket) => {
 
     socket.on('FORTUNATO', (data) => {
         console.log(`FORTUNATO: ${data}`);
-        io.sockets.emit("desde_servidor_comando",data)
+        io.sockets.emit("FORTUNATO_DS",data)
     });
     socket.on('VILLEGAS', (data) => {
         console.log(`VILLEGAS: ${data}`);
-        io.sockets.emit("desde_servidor_comando",data)
+        io.sockets.emit("VILLEGAS_DS",data)
     });
     socket.on('LAS_CHICAS_SUPER_PODEROSAS', (data) => {
         console.log(`LAS_CHICAS_SUPER_PODEROSAS: ${data}`);
@@ -187,7 +187,7 @@ La interfaz web incluirá elementos para mostrar datos y botones para enviar com
 <html>
 
     <head>
-        <title> Mi página</title>
+        <title> Telecomunicaciones</title>
         <script type="text/javascript" src="socket.io/socket.io.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="index.js"></script>
@@ -195,15 +195,16 @@ La interfaz web incluirá elementos para mostrar datos y botones para enviar com
     </head>
 
     <body>
-        <h2>Fortunato - Monitoreo y Control</h2>
+        <h2>Bioingeniería - Telecomunicaciones - Monitoreo y Control</h2>
         <div id="div_otro"></div>
         <div id="las_chicas_super_poderosas"></div>
         <div id="mphb"></div>
         <div id="armando"></div>
         <div id="villegas"></div>
-        <!-- 
-        <div id="my_div"></div>
-        -->
+        <div id="fortunato"></div>
+         
+        <div id="div_grafica"></div>
+    
         <br><br>
         <div>
             <input type="button" class="button button1" value="ENCENDER LED" onclick="encender()">
@@ -238,7 +239,7 @@ La interfaz web incluirá elementos para mostrar datos y botones para enviar com
 **Archivo `index.js`**:
 ```javascript
 var socket = io.connect();
-var explodedValues = [4];
+var explodedValues = [5];
 
 socket.on('desde_servidor_otro', function(data){
     //console.log(data);
@@ -254,8 +255,8 @@ socket.on('LAS_CHICAS_SUPER_PODEROSAS_DS', function(data){
     //data_JSON = JSON.parse(data)
     var cadena = `<div> <strong> &#128536; Las Chicas Súper Poderosas:  <font color="orange">` + data + `</strong> </div>`;
     document.getElementById("las_chicas_super_poderosas").innerHTML = cadena;
-    //explodedValues[0] = parseFloat(data);
-    //drawVisualization();
+    explodedValues[0] = parseFloat(data);
+    drawVisualization();
 });
 
 socket.on('ME_PUSE_HASTA_EL_BASH_DS', function(data){
@@ -263,26 +264,35 @@ socket.on('ME_PUSE_HASTA_EL_BASH_DS', function(data){
     //data_JSON = JSON.parse(data)
     var cadena = `<div> <strong> &#128526; Me Puse Hasta el Bash:  <font color="blue">` + data + `</strong> </div>`;
     document.getElementById("mphb").innerHTML = cadena;
-    //explodedValues[1] = parseFloat(data);
-    //drawVisualization();
+    explodedValues[1] = parseFloat(data);
+    drawVisualization();
 });
 
 socket.on('ARMANDO_DS', function(data){
     //console.log(data);
     //data_JSON = JSON.parse(data)
-    var cadena = `<div> <strong> &#128584; Me Puse Hasta el Bash:  <font color="black">` + data + `</strong> </div>`;
+    var cadena = `<div> <strong> &#128584; Armando:  <font color="black">` + data + `</strong> </div>`;
     document.getElementById("armando").innerHTML = cadena;
-    //explodedValues[2] = parseFloat(data);
-    //drawVisualization();
+    explodedValues[2] = parseFloat(data);
+    drawVisualization();
 });
 
 socket.on('VILLEGAS_DS', function(data){
     //console.log(data);
     //data_JSON = JSON.parse(data)
-    var cadena = `<div> <strong> &#128584; Villegas:  <font color="green">` + data + `</strong> </div>`;
+    var cadena = `<div> <strong> &#128005; Villegas:  <font color="green">` + data + `</strong> </div>`;
     document.getElementById("villegas").innerHTML = cadena;
-    //explodedValues[3] = parseFloat(data);
-    //drawVisualization();
+    explodedValues[3] = parseFloat(data);
+    drawVisualization();
+});
+
+socket.on('FORTUNATO_DS', function(data){
+    //console.log(data);
+    //data_JSON = JSON.parse(data)
+    var cadena = `<div> <strong> &#128640; Fortunato:  <font color="grey">` + data + `</strong> </div>`;
+    document.getElementById("fortunato").innerHTML = cadena;
+    explodedValues[4] = parseFloat(data);
+    drawVisualization();
 });
 
 function encender()
@@ -307,10 +317,11 @@ function drawVisualization() {
     // Create and populate the data table from the values received via websocket
     var data = google.visualization.arrayToDataTable([
         ['Tracker', '1',{ role: 'style' }],
-        ['Temp[C]', explodedValues[0],'color: orange'],
-        ['Temp[F]', explodedValues[1],'color: blue'],
-        ['Hum[%]', explodedValues[2],'color: black'],
-        ['Otro',   explodedValues[3],'color: green']
+        ['Las Chicas Súper Poderosas', explodedValues[0],'color: orange'],
+        ['Me Puse Hasta el Bash', explodedValues[1],'color: blue'],
+        ['Armando', explodedValues[2],'color: black'],
+        ['Villegas',   explodedValues[3],'color: green'],
+        ['Fortunato',   explodedValues[4],'color: grey']
     ]);
     
     // use a DataView to 0-out all the values in the data set for the initial draw
