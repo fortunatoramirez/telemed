@@ -128,6 +128,7 @@ cv2.destroyAllWindows()
 - Solo **detecta la mano y envía valores angulares** al servidor.
 - Los 4 servos reciben el mismo valor, solo para pruebas iniciales.
 - Asegúrate de que el servidor esté corriendo antes de iniciar este cliente.
+- Quitar los comentarios de la conexión y envío al server para enviar datos.
 
 ---
 
@@ -522,9 +523,9 @@ import cv2
 import mediapipe as mp
 import math
 import time
-# from socketIO_client import SocketIO  # Descomenta si vas a enviar
+from socketIO_client import SocketIO
 
-# socketIO = SocketIO('localhost', 3000)
+socketIO = SocketIO('localhost', 3000)
 
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
@@ -534,6 +535,10 @@ hands = mp_hands.Hands(
 )
 mp_drawing = mp.solutions.drawing_utils
 cap = cv2.VideoCapture(0)
+
+# Sensibilidad del control (0.1 = 10% de la pantalla)
+SENSIBILIDAD_X = 0.1
+SENSIBILIDAD_Y = 0.1
 
 def map_range(value, in_min, in_max, out_min, out_max):
     value = max(min(value, in_max), in_min)
@@ -561,6 +566,11 @@ def clasificar_manos(hands_result):
             mano_derecha = hands_result.multi_hand_landmarks[idx]
     return mano_izquierda, mano_derecha
 
+def mano_cerrada(landmarks):
+    cerrado_indice = landmarks[8].y > landmarks[6].y
+    cerrado_corazon = landmarks[12].y > landmarks[10].y
+    return cerrado_indice and cerrado_corazon
+
 last_send = time.time()
 
 while cap.isOpened():
@@ -568,62 +578,84 @@ while cap.isOpened():
     if not ret:
         break
 
-    frame = cv2.flip(frame, 1)
+    # frame = cv2.flip(frame, 1)  # Quita si no quieres espejo
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(rgb)
+
+    # Valores por defecto (sin mover el brazo)
+    servo0 = 90
+    servo1 = 90
+    servo2 = 90
+    servo3 = 90
+    control_activado = False
 
     if results.multi_hand_landmarks:
         left, right = clasificar_manos(results)
 
-        servo0 = 90  # rotación base
-        servo1 = 90  # brazo inferior
-        servo2 = 90  # brazo superior
-        servo3 = 90  # pinza
-
         if left:
             lm_left = left.landmark
-            # Servo 0: rotación base (invertida)
-            servo0 = map_range(lm_left[0].x, 0, 1, 180, 0)
-            # Servo 1: brazo inferior (invertida)
-            servo1 = map_range(lm_left[0].y, 0, 1, 0, 180)
-            # Visual
-            draw_landmark_point(frame, lm_left[0], "circle", (0, 255, 0))  # palma izquierda
+            control_activado = mano_cerrada(lm_left)
+
+            draw_landmark_point(frame, lm_left[0], "circle", (0, 255, 0))
             mp_drawing.draw_landmarks(frame, left, mp_hands.HAND_CONNECTIONS)
 
-        if right:
-            lm_right = right.landmark
-            # Servo 2: brazo superior → Y de la palma derecha
-            servo2 = map_range(lm_right[0].y, 0, 1, 180, 0)
+            if control_activado:
+                servo0 = map_range(
+                    lm_left[0].x,
+                    0.5 - SENSIBILIDAD_X, 0.5 + SENSIBILIDAD_X,
+                    180, 0
+                )
+                servo1 = map_range(
+                    lm_left[0].y,
+                    0.5 - SENSIBILIDAD_Y, 0.5 + SENSIBILIDAD_Y,
+                    0, 180
+                )
 
-            # Servo 3: pinza → distancia entre pulgar e índice
+        if right and control_activado:
+            lm_right = right.landmark
+            servo2 = map_range(
+                lm_right[0].y,
+                0.5 - SENSIBILIDAD_Y, 0.5 + SENSIBILIDAD_Y,
+                180, 0
+            )
             dist = distance(lm_right[4], lm_right[8])
             servo3 = map_range(dist, 0.02, 0.25, 180, 0)
 
-            # Visual
-            draw_landmark_point(frame, lm_right[0], "circle", (255, 0, 255))  # palma derecha
-            draw_landmark_point(frame, lm_right[4], "circle", (255, 255, 0))  # pulgar
-            draw_landmark_point(frame, lm_right[8], "circle", (255, 255, 0))  # índice
+            draw_landmark_point(frame, lm_right[0], "circle", (255, 0, 255))
+            draw_landmark_point(frame, lm_right[4], "circle", (255, 255, 0))
+            draw_landmark_point(frame, lm_right[8], "circle", (255, 255, 0))
             mp_drawing.draw_landmarks(frame, right, mp_hands.HAND_CONNECTIONS)
 
-        angles = {
-            'servo0': servo0,
-            'servo1': servo1,
-            'servo2': servo2,
-            'servo3': servo3
-        }
+    # Mostrar estado del control
+    if control_activado:
+        cv2.putText(frame, "CONTROL ACTIVADO", (60, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+        cv2.circle(frame, (30, 35), 10, (0, 255, 0), -1)  # círculo verde
+    else:
+        cv2.putText(frame, "CONTROL DESACTIVADO (cierra la mano izquierda)", (60, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+        cv2.circle(frame, (30, 35), 10, (0, 0, 255), -1)  # círculo rojo
 
-        print("Ángulos:", angles)
+    angles = {
+        'servo0': servo0,
+        'servo1': servo1,
+        'servo2': servo2,
+        'servo3': servo3
+    }
 
-        if time.time() - last_send > 0.1:
-            # socketIO.emit('control_servos', angles)
-            last_send = time.time()
+    print("Ángulos:", angles)
 
-    cv2.imshow("Control por gestos - Ambas manos (final)", frame)
+    if control_activado and time.time() - last_send > 0.1:
+        socketIO.emit('control_servos', angles)
+        last_send = time.time()
+
+    cv2.imshow("Control por gestos - Alta sensibilidad", frame)
     if cv2.waitKey(1) & 0xFF == 27:
         break
 
 cap.release()
 cv2.destroyAllWindows()
+
 ```
 
 ---
