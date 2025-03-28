@@ -1,6 +1,6 @@
 
 
-### 🛠️ **Control remoto de un brazo robótico por gestos usando MediaPipe, Socket.IO y Arduino**
+# 🛠️ **Control remoto de un brazo robótico por gestos usando MediaPipe, Socket.IO y Arduino**
 
 ---
 
